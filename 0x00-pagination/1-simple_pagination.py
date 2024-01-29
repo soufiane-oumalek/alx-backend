@@ -39,5 +39,3 @@ class Server:
         range = index_range(page, page_size)
         self.dataset()
         return self.__dataset[range[0]:range[1]]
-        pages = self.dataset()
-        return pages[start:end]
