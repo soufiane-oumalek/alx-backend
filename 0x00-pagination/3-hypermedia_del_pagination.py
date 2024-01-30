@@ -54,5 +54,4 @@ class Server:
         i += 1
         next_index += 1
     return {'index': index, 'next_index': next_index,
-            'page_size': page_size, 'data': pages
-    }
+            'page_size': page_size, 'data': pages}
