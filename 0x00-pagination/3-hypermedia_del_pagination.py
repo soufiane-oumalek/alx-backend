@@ -5,11 +5,12 @@ Deletion-resilient hypermedia pagination
 
 import csv
 import math
-from typing import List
+from typing import List, Dict
 
 
 class Server:
-    """Server class to paginate a database of popular baby names."""
+    """Server class to paginate a database of popular baby names.
+    """
     DATA_FILE = "Popular_Baby_Names.csv"
 
     def __init__(self):
@@ -38,20 +39,25 @@ class Server:
             }
         return self.__indexed_dataset
 
+
     def get_hyper_index(self, index: int = None, page_size: int = 10) -> Dict:
         """Return a dictionary containing pagination information."""
 
-    assert isinstance(index, int) and isinstance(page_size, int)
-    assert 0 <= index < len(self.indexed_dataset())
-
-    pages = []
-    next_index = index + page_size
-    i = index
-
-    while len(pages) < page_size:
-        if i in self.indexed_dataset():
-            pages.append(self.indexed_dataset()[i])
-        i += 1
-        next_index += 1
-    return {'index': index, 'next_index': next_index,
-            'page_size': page_size, 'data': pages}
+        assert (isinstance(index, int)
+                and index in range(len(self.__indexed_dataset)))
+        data = []
+        diff = 0
+        row = index
+        while diff < page_size and row < len(self.__indexed_dataset):
+            if row in self.__indexed_dataset:
+                data.append(self.__indexed_dataset[row])
+                row += 1
+                diff += 1
+            else:
+                row += 1
+        if row < len(self.__indexed_dataset):
+            next = row
+        else:
+            next = None
+        return {'index': index, 'next_index': next,
+                'page_size': len(data), 'data': data}
