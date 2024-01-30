@@ -41,23 +41,21 @@ class Server:
     def get_hyper_index(self, index: int = None, page_size: int = 10) -> Dict:
         """Return a dictionary containing pagination information."""
 
-        assert isinstance(index, int) and isinstance(page_size, int)
-        assert 0 <= index < len(self.indexed_dataset())
+    assert isinstance(index, int) and isinstance(page_size, int)
+    assert 0 <= index < len(self.indexed_dataset())
 
-        pages = []
-        next_index = index + page_size
-        i = index
-        while len(pages) < page_size:
-            if i not in self.indexed_dataset():
-                i += 1
-                next_index += 1
-                continue
+    pages = []
+    next_index = index + page_size
+    i = index
+
+    while len(pages) < page_size:
+        if i in self.indexed_dataset():
             pages.append(self.indexed_dataset()[i])
-            i += 1
-
-        return {
-          'index': index,
-          'next_index': next_index,
-          'page_size': page_size,
-          'data': pages
-        }
+        i += 1
+        next_index += 1
+    return {
+        'index': index,
+        'next_index': next_index,
+        'page_size': page_size,
+        'data': pages
+    }
