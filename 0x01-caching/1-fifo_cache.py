@@ -6,6 +6,12 @@ BaseCaching = __import__('base_caching').BaseCaching
 
 class BasicCache(BaseCaching):
     """ BasicCache Class """
+    def __init__(self):
+        """Initializes the cache.
+        """
+        super().__init__()
+        self.cache_data = OrderedDict()
+
     def put(self, key, item):
         """ assign to the dictionary self.
         cache_data the item value for the key key.
