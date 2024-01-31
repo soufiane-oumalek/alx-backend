@@ -1,30 +1,44 @@
-#!/usr/bin/python3
-""" Basic dictionary """
+#!/usr/bin/env python3
+"""1. FIFO caching.
+"""
+from base_caching import BaseCaching
 
-BaseCaching = __import__('base_caching').BaseCaching
 
+class FIFOCache(BaseCaching):
+    """Represents a caching system that uses First-In First-Out (FIFO) eviction policy.
+    """
 
-class BasicCache(BaseCaching):
-    """ BasicCache Class """
     def __init__(self):
         """Initializes the cache.
         """
         super().__init__()
-        self.cache_data = OrderedDict()
+        self.queue = []
 
     def put(self, key, item):
-        """ assign to the dictionary self.
-        cache_data the item value for the key key.
-        If key or item is None, this method should not do anything.
+        """Adds an item in the cache.
+
+        Args:
+            key: The key of the item.
+            item: The item to be stored.
         """
-        if key is not None and item is not None:
-            self.cache_data[key] = item
-        if len(self.cache_data) > BaseCaching.MAX_ITEMS:
-            first_key, _ = self.cache_data.popitem(False)
-            print("DISCARD:", first_key)
+        if key is None or item is None:
+            return
+
+        if len(self.cache_data) >= self.MAX_ITEMS:
+            discarded_key = self.queue.pop(0)
+            del self.cache_data[discarded_key]
+            print(f"DISCARD: {discarded_key}")
+
+        self.cache_data[key] = item
+        self.queue.append(key)
 
     def get(self, key):
+        """Retrieves an item by key.
+
+        Args:
+            key: The key of the item to retrieve.
+
+        Returns:
+            The item if found, None otherwise.
         """
-        return the value of key in self.cache_data
-        """
-        return self.cache_data.get(key, None)
+        return self.cache_data.get(key)
