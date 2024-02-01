@@ -23,9 +23,9 @@ class LIFOCache(BaseCaching):
             return
 
         if len(self.cache_data) >= self.MAX_ITEMS:
-            discarded_key = self.stack.pop()
-            del self.cache_data[discarded_key]
-            print(f"DISCARD: {discarded_key}")
+            disc_key = self.stack.pop()
+            del self.cache_data[disc_key]
+            print(f"DISCARD: {disc_key}")
 
         self.cache_data[key] = item
         self.stack.append(key)

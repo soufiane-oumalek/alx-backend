@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
-"""1. FIFO caching.
+"""LRU Caching
 """
 from base_caching import BaseCaching
 
 
-class FIFOCache(BaseCaching):
-    """ Class LIFOCache.
+class LRUCache(BaseCaching):
+    """ Class LRUCach
     """
+
     def __init__(self):
         """Initializes the cache.
         """
@@ -21,7 +22,9 @@ class FIFOCache(BaseCaching):
         if key is None or item is None:
             return
 
-        if len(self.cache_data) >= self.MAX_ITEMS:
+        if key in self.cache_data:
+            self.queue.remove(key)
+        elif len(self.cache_data) >= self.MAX_ITEMS:
             discarded_key = self.queue.pop(0)
             del self.cache_data[discarded_key]
             print(f"DISCARD: {discarded_key}")
@@ -34,4 +37,8 @@ class FIFOCache(BaseCaching):
         If key is None or if the key doesn’t exist in self.
         cache_data, return None.
         """
-        return self.cache_data.get(key)
+        if key in self.cache_data:
+            self.queue.remove(key)
+            self.queue.append(key)
+            return self.cache_data[key]
+        return None
