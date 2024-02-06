@@ -1,11 +1,8 @@
 #!/usr/bin/env python3
-""" Basic Flask app """
+""" Flask app, Babel setup
+"""
 from flask import Flask, render_template
 from flask_babel import Bable
-
-app = Flask(__name__)
-babel = Bable(app)
-"""Babel object"""
 
 
 class config(object):
@@ -15,6 +12,8 @@ class config(object):
     BABLE_DEFAULT_TIMEZONE = 'UTC'
 
 
+app = Flask(__name__)
+babel = Babel(app)
 app.config.from_object(Config)
 """config for flask app"""
 
