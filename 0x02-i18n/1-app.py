@@ -12,11 +12,11 @@ class Config(object):
 
 
 app = Flask(__name__)
-app.config.from_object(Config)
 babel = Babel(app)
+app.config.from_object(Config)
 
 
-@app.route('/', strict_slashes=False)
+@app.route('/')
 def home() -> str:
     """ home page """
     return render_template('1-index.html')
