@@ -23,10 +23,9 @@ def get_locale():
      detect if the incoming request contains
      locale argument and ifs value is a supported locale
     """
-    lcl = request.args.get('locale')
-    if lcl in app.config['LANGUAGES']:
-        print(lcl)
-        return lcl
+    locale = request.args.get('locale')
+    if locale:
+        return locale
 
     return request.accept_languages.best_match(app.config['LANGUAGES'])
 
