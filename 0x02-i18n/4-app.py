@@ -19,13 +19,16 @@ app.url_map.strict_slashes = False
 
 @babel.localeselector
 def get_locale():
-    """ determine the best match with our supported languages"""
-    lcl = request.args.get("locale")
-    if lcl in app.config["LANGUAGES"]:
+    """
+     detect if the incoming request contains
+     locale argument and ifs value is a supported locale
+    """
+    lcl = request.args.get('locale')
+    if lcl in app.config['LANGUAGES']:
         print(lcl)
         return lcl
-    else:
-        return request.accept_languages.best_match(app.config['LANGUAGES'])
+
+    return request.accept_languages.best_match(app.config['LANGUAGES'])
 
 
 @app.route('/')
