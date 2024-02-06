@@ -17,8 +17,8 @@ babel = Babel(app)
 app.config.from_object(Config)
 """config for flask app"""
 
-@app.route('/')
-def home():
+@app.route('/', strict_slashes=False)
+def home() -> str:
     """ home page """
     return render_template('1-index.html')
 
