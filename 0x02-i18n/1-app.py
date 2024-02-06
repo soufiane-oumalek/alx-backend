@@ -2,14 +2,14 @@
 """ Flask app, Babel setup
 """
 from flask import Flask, render_template
-from flask_babel import Bable
+from flask_babel import Babel
 
 
 class config(object):
     """ class config """
     LANGUAGES = ['en', 'fr']
-    BABLE_DEFAULT_LOCATE = 'en'
-    BABLE_DEFAULT_TIMEZONE = 'UTC'
+    BABEL_DEFAULT_LOCATE = 'en'
+    BABEL_DEFAULT_TIMEZONE = 'UTC'
 
 
 app = Flask(__name__)
