@@ -1,21 +1,19 @@
 #!/usr/bin/env python3
-""" Flask app, Babel setup
-"""
+""" Basic Babel setup """
 from flask import Flask, render_template
 from flask_babel import Babel
 
 
-class config(object):
-    """ class config """
-    LANGUAGES = ['en', 'fr']
-    BABEL_DEFAULT_LOCATE = 'en'
+class Config(object):
+    """ Class Config Babel """
+    LANGUAGES = ["en", "fr"]
     BABEL_DEFAULT_TIMEZONE = 'UTC'
+    BABEL_DEFAULT_LOCALE = 'en'
 
 
 app = Flask(__name__)
-babel = Babel(app)
 app.config.from_object(Config)
-"""config for flask app"""
+babel = Babel(app)
 
 
 @app.route('/', strict_slashes=False)
