@@ -5,17 +5,18 @@ from flask_babel import Bable
 
 app = Flask(__name__)
 babel = Bable(app)
+"""Babel object"""
 
 
 class config(object):
     """ class config """
     LANGUAGES = ['en', 'fr']
-    Bable_DEFAULT_LOCATE = 'en'
-    Bable_DEFAULT_TIMEZONE = 'UTC'
+    BABLE_DEFAULT_LOCATE = 'en'
+    BABLE_DEFAULT_TIMEZONE = 'UTC'
 
 
 app.config.from_object(Config)
-
+"""config for flask app"""
 
 @app.route('/')
 def home():
