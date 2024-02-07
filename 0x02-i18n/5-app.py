@@ -38,7 +38,8 @@ def get_user() -> Union[Dict, None]:
 @app.before_request
 def before_request() -> None:
     """ use get_user to find a user """
-    g.user = get_user
+    id = request.args.get('login_as', None)
+    g.user = get_user(id)
 
 
 @babel.localeselector
