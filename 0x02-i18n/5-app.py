@@ -26,11 +26,11 @@ app.url_map.strict_slashes = False
 
 
 def get_user() -> Union[Dict, None]:
-    """Retrieves a user based on a user id.
+    """Retrieves a user
     """
-    login_id = request.args.get('login_as')
-    if login_id:
-        return users.get(int(login_id))
+    id_log = request.args.get('login_as')
+    if id_log:
+        return users.get(int(id_log))
     return None
 
 
