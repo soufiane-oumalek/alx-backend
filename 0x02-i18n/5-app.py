@@ -2,8 +2,6 @@
 """ Basic Babel setup """
 from flask import Flask, render_template, request, g
 from flask_babel import Babel
-from typing import Union, Dict
-
 
 users = {
     1: {"name": "Balou", "locale": "fr", "timezone": "Europe/Paris"},
@@ -26,13 +24,14 @@ app.config.from_object(Config)
 app.url_map.strict_slashes = False
 
 
-def get_user() -> Union[Dict, None]:
-    """Retrieves a user
-    """
-    id_log = request.args.get('login_as')
-    if id_log:
-        return users.get(int(id_log))
-    return None
+def get_user():
+    """ returns a user dictionary or None
+     """
+    try:
+        id_log = request.args.get('login_as')
+        return users[int(id_log)]
+    except Exception:
+        return None
 
 
 @app.before_request
