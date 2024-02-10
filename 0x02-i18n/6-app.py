@@ -26,10 +26,10 @@ app.config.from_object(Config)
 """ class as config for Flask app """
 
 
-@app.route('/')
-def home() -> str:
-    """ home page """
-    return render_template('6-index.html')
+def get_user():
+    """ returns a user dictionary or None
+    """
+    return users["id"] if id is not None else None
 
 
 @babel.localeselector
@@ -50,20 +50,16 @@ def get_locale():
     return request.accept_languages.best_match(app.config['LANGUAGES'])
 
 
-def get_user():
-    """ returns a user dictionary or None
-    """
-    try:
-        userId = request.args.get('login_as')
-        return users[int(userId)]
-    except Exception:
-        return None
-
-
 @app.before_request
 def before_request():
     """ use get_user to find a user if """
     g.user = get_user()
+
+
+@app.route('/')
+def home() -> str:
+    """ home page """
+    return render_template('6-index.html')
 
 
 if __name__ == "__main__":
